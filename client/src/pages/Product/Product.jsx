@@ -6,6 +6,8 @@ import BalanceOutlinedIcon from '@mui/icons-material/BalanceOutlined';
 import { useParams } from 'react-router-dom';
 import useFetch from '../../hook/useFetch'
 import { UPLOAD_URL } from '../../index'
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/cartReducer';
 
 export const Product = () => {
     const id = useParams().id
@@ -13,6 +15,8 @@ export const Product = () => {
     const [quantity, setQuantity] = useState(1)
 
     const { data, loading, error } = useFetch(`/products/${id}?populate=*`)
+
+    const dispatch = useDispatch()
 
     return (
         <div className='product'>
@@ -35,7 +39,14 @@ export const Product = () => {
                         {quantity}
                         <button onClick={() => setQuantity(prev => prev + 1)}> + </button>
                     </div>
-                    <button className='add'>
+                    <button className='add' onClick={() => dispatch(addToCart({
+                        id: data.id,
+                        title: data.attributes.title,
+                        description: data.attributes.description,
+                        price: data.attributes.price,
+                        image: data.attributes.image.data.attributes.url,
+                        quantity
+                    }))}>
                         <AddShoppingCartOutlinedIcon /> ADD TO CART
                     </button>
 
