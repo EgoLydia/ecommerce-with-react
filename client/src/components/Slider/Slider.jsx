@@ -22,9 +22,6 @@ export default function Slider() {
     return (
         <div className='slider'>
             <div className="container" style={{ transform: `translateX(-${currentSlide * 100}vw)` }}>
-                {/* {images.map(item => (
-                    <img src={item} alt="" key={item.id} />
-                ))} */}
                 <img src={images[0]} alt="" />
                 <img src={images[1]} alt="" />
                 <img src={images[2]} alt="" />
